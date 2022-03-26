@@ -9,7 +9,7 @@ def dingtalk(msg, dingtalk_token, tries=5):
     data = {
         "msgtype": "text",
         "text": {
-            "content": msg
+            "content": msg + '\n' + datetime.now(tz=timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S") 
         },
         "at": {
             "isAtAll": False
