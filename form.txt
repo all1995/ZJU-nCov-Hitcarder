@@ -132,6 +132,7 @@
                                     <div @click="info.campus='宁波校区'"><span :class="{active: info.campus==='宁波校区'}"><i></i></span> <span>宁波校区</span></div>
                                     <div @click="info.campus='工程师学院'"><span :class="{active: info.campus==='工程师学院'}"><i></i></span> <span>工程师学院</span></div>
                                     <div @click="info.campus='杭州国际科创中心'"><span :class="{active: info.campus==='杭州国际科创中心'}"><i></i></span> <span>杭州国际科创中心</span></div>
+                                    <div @click="info.campus='其他'"><span :class="{active: info.campus==='其他'}"><i></i></span> <span>其他</span></div>
                                 </div>
                             </div>
                         </li>
