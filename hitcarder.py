@@ -11,20 +11,6 @@ import sys
 import message
 import ddddocr
 
-    ## Captcha request ##
-
-    main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
-    captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
-    ocr = ddddocr.DdddOcr()
-
-    sess = requests.session()
-    # 设置 cookie
-    cookie_dict = {'eai-sess': os.environ.get('EAI_SESS')}
-    sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
-
-    resp = sess.get(captcha_url)
-    captcha = ocr.classification(resp.content)
-    print(captcha)
 
 class HitCarder(object):
     """Hit carder class
@@ -136,6 +122,23 @@ class HitCarder(object):
                 'Relative info not found in html with regex: ' + str(err))
         except json.decoder.JSONDecodeError as err:
             raise DecodeError('JSON decode error: ' + str(err))
+
+            
+            
+            ## Captcha request ##
+
+        main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
+        captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
+        ocr = ddddocr.DdddOcr()
+
+        sess = requests.session()
+        # 设置 cookie
+        cookie_dict = {'eai-sess': os.environ.get('EAI_SESS')}
+        sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
+
+        resp = sess.get(captcha_url)
+        captcha = ocr.classification(resp.content)
+        print(captcha)
 
         new_info = def_info.copy()
         new_info.update(magic_code_group)
