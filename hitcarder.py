@@ -126,7 +126,6 @@ class HitCarder(object):
 
 
         ## Captcha request ##
-
         main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
         captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
         ocr = ddddocr.DdddOcr()
@@ -209,12 +208,12 @@ def main(username, password):
         if not ret:
             return 2, '打卡信息已改变，请手动打卡'
     except Exception as err:
-        return 1, '获取信息失败，请手动打卡: ' + str(err)
+        return 1, '获取信息失败1，请手动打卡: ' + str(err)
 
     try:
         hit_carder.get_info()
     except Exception as err:
-        return 1, '获取信息失败，请手动打卡: ' + str(err)
+        return 1, '获取信息失败2，请手动打卡: ' + str(err)
 
     try:
         res = hit_carder.post()
