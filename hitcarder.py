@@ -133,7 +133,7 @@ class HitCarder(object):
 
         sess = requests.session()
         # 设置 cookie
-        cookie_dict = {'eai-sess': os.environ.get('EAI_SESS')}
+        cookie_dict = {'eai-sess': 'q7t9nc9lb4fjtc1pb3n5b61cu4'}
         sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
 
         resp = sess.get(captcha_url)
