@@ -23,6 +23,20 @@ class HitCarder(object):
         save_url: (str) 提交打卡url
         sess: (requests.Session) 统一的session
     """
+            ## Captcha request ##
+
+main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
+captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
+ocr = ddddocr.DdddOcr()
+
+sess = requests.session()
+# 设置 cookie
+cookie_dict = {'eai-sess': 'q7t9nc9lb4fjtc1pb3n5b61cu4'}
+sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
+
+resp = sess.get(captcha_url)
+captcha = ocr.classification(resp.content)
+print(captcha)
 
     def __init__(self, username, password):
         self.username = username
@@ -123,22 +137,7 @@ class HitCarder(object):
         except json.decoder.JSONDecodeError as err:
             raise DecodeError('JSON decode error: ' + str(err))
 
-            
-            
-            ## Captcha request ##
 
-main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
-captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
-ocr = ddddocr.DdddOcr()
-
-sess = requests.session()
-# 设置 cookie
-cookie_dict = {'eai-sess': 'q7t9nc9lb4fjtc1pb3n5b61cu4'}
-sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
-
-resp = sess.get(captcha_url)
-captcha = ocr.classification(resp.content)
-print(captcha)
 
         new_info = def_info.copy()
         new_info.update(magic_code_group)
