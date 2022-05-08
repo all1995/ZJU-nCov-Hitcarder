@@ -39,7 +39,7 @@ runs:
       run: |
         cd ${{ github.action_path }}
         pip install -r ./requirements.txt
-        python ./test.py
+        python3 ./test.py
         python3 ./hitcarder.py
         
       shell: bash
