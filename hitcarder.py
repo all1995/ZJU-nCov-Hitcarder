@@ -9,7 +9,22 @@ import datetime
 import os
 import sys
 import message
+import ddddocr
 
+    ## Captcha request ##
+
+    main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
+    captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
+    ocr = ddddocr.DdddOcr()
+
+    sess = requests.session()
+    # 设置 cookie
+    cookie_dict = {'eai-sess': os.environ.get('EAI_SESS')}
+    sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
+
+    resp = sess.get(captcha_url)
+    captcha = ocr.classification(resp.content)
+    print(captcha)
 
 class HitCarder(object):
     """Hit carder class
@@ -135,6 +150,7 @@ class HitCarder(object):
         new_info['sfzx'] = old_info['sfzx'] # 在校
         new_info['sfymqjczrj'] = old_info['sfymqjczrj'] # 入境
         new_info['sfqrxxss'] = 1 # 属实
+        new_info['verifyCode'] = captcha #验证码
 
         self.info = new_info
         # print(json.dumps(self.info))
