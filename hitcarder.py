@@ -23,20 +23,7 @@ class HitCarder(object):
         save_url: (str) 提交打卡url
         sess: (requests.Session) 统一的session
     """
-            ## Captcha request ##
-
-main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
-captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
-ocr = ddddocr.DdddOcr()
-
-sess = requests.session()
-# 设置 cookie
-cookie_dict = {'eai-sess': 'q7t9nc9lb4fjtc1pb3n5b61cu4'}
-sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
-
-resp = sess.get(captcha_url)
-captcha = ocr.classification(resp.content)
-print(captcha)
+    
 
     def __init__(self, username, password):
         self.username = username
@@ -54,7 +41,7 @@ print(captcha)
         # self.sess.headers['User-Agent'] = ua.chrome
         self.sess.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36'}
-
+        
     def login(self):
         """Login to ZJU platform"""
         time.sleep(1)
@@ -138,7 +125,21 @@ print(captcha)
             raise DecodeError('JSON decode error: ' + str(err))
 
 
+        ## Captcha request ##
 
+        main_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/index'
+        captcha_url = 'https://healthreport.zju.edu.cn/ncov/wap/default/code'
+        ocr = ddddocr.DdddOcr()
+
+        sess = requests.session()
+        # 设置 cookie
+        cookie_dict = {'eai-sess': 'q7t9nc9lb4fjtc1pb3n5b61cu4'}
+        sess.cookies = requests.cookies.cookiejar_from_dict(cookie_dict)
+
+        resp = sess.get(captcha_url)
+        captcha = ocr.classification(resp.content)
+        print(captcha)
+    
         new_info = def_info.copy()
         new_info.update(magic_code_group)
         # form change
